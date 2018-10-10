@@ -1,6 +1,8 @@
 # dmenu version
 VERSION = 4.8
 
+OS = $(uname -s)
+
 # paths
 PREFIX = /usr/local
 MANPREFIX = $(PREFIX)/share/man
@@ -15,8 +17,11 @@ XINERAMAFLAGS = -DXINERAMA
 # freetype
 FREETYPELIBS = -lfontconfig -lXft
 FREETYPEINC = /usr/include/freetype2
-# OpenBSD (uncomment)
-#FREETYPEINC = $(X11INC)/freetype2
+
+ifneq ($(OS),Linux)
+# Assume BSD
+FREETYPEINC = ${X11INC}/freetype2
+endif
 
 # includes and libs
 INCS = -I$(X11INC) -I$(FREETYPEINC)
